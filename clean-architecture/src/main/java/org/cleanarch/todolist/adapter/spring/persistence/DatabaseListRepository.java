@@ -15,9 +15,12 @@ public class DatabaseListRepository implements ListStore {
 
     private final SpringJpaListRepository listRepository;
 
+    private final TodoListMapper mapper;
+
     @Autowired
-    public DatabaseListRepository(SpringJpaListRepository listRepository) {
+    public DatabaseListRepository(SpringJpaListRepository listRepository, TodoListMapper mapper) {
         this.listRepository = listRepository;
+        this.mapper = mapper;
     }
 
     @Override
@@ -26,12 +29,13 @@ public class DatabaseListRepository implements ListStore {
     public Iterable<TodoList> findAll() {
         List<TodoListEntity> allTodoLists = listRepository.findAll();
         return allTodoLists.stream()
-                .map(TodoListEntity::toModel)
+                .map(mapper::todoListEntityToTodoList)
                 .collect(Collectors.toList());
     }
 
     @Override
     public TodoList save(TodoList todoList) {
-        return listRepository.save(TodoListEntity.from(todoList)).toModel();
+        TodoListEntity todoListEntity = listRepository.save(mapper.todoListToTodoListEntity(todoList));
+        return mapper.todoListEntityToTodoList(todoListEntity);
     }
 }

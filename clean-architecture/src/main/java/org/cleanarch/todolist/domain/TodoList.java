@@ -1,6 +1,8 @@
 package org.cleanarch.todolist.domain;
 
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 import lombok.Value;
 import org.cleanarch.todolist.domain.Task.TaskId;
 import org.cleanarch.todolist.domain.TodoList.TodoListId;
@@ -12,9 +14,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
+@Getter
+@Setter
 public class TodoList implements AggregateRoot<TodoList, TodoListId> {
-    private final TodoListId id;
-    private final List<Task> tasks;
+    private TodoListId id;
+    private List<Task> tasks;
 
     @Value(staticConstructor = "of")
     public static class TodoListId implements Identifier {
@@ -23,16 +27,8 @@ public class TodoList implements AggregateRoot<TodoList, TodoListId> {
     }
 
     public TodoList() {
-        this(TodoListId.of(UUID.randomUUID()));
-    }
-
-    public TodoList(TodoListId todoListId) {
-        this(todoListId, new ArrayList<>());
-    }
-
-    public TodoList(TodoListId todoListId, List<Task> tasks) {
-        this.id = todoListId;
-        this.tasks = tasks;
+        this.id = TodoListId.of(UUID.randomUUID());
+        this.tasks = new ArrayList<>();
     }
 
     @Override

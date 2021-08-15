@@ -3,6 +3,7 @@ package org.cleanarch.todolist.adapter.spring.persistence;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor // JPA needs default constructor
 @AllArgsConstructor
 @Getter
+@Setter
 public class TaskEntity {
 
     @Id
@@ -22,5 +24,5 @@ public class TaskEntity {
     private String name;
 
     @Column
-    boolean completed;
+    private boolean completed;
 }
