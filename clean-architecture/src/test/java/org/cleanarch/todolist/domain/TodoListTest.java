@@ -7,6 +7,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasProperty;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TodoListTest {
 
@@ -36,5 +37,12 @@ class TodoListTest {
                 hasProperty("name", is(equalTo(TASK_ONE))),
                 hasProperty("name", is(equalTo(TASK_TWO)))
         ));
+    }
+
+    @Test
+    void should_not_add_a_task_without_name() {
+        final var list = new TodoList();
+        assertThrows(InvalidTaskName.class, () -> list.addTask(null));
+        assertThat(list.listTasks().size(), is(equalTo(0)));
     }
 }
