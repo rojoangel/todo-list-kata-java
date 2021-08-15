@@ -1,5 +1,6 @@
 package org.cleanarch.todolist.domain;
 
+import org.cleanarch.todolist.domain.Task.TaskId;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -7,6 +8,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.not;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TodoListTest {
@@ -58,5 +60,17 @@ class TodoListTest {
         final var list = new TodoList();
         assertThrows(InvalidTaskName.class, () -> list.addTask("  "));
         assertThat(list.listTasks().size(), is(equalTo(0)));
+    }
+
+    @Test
+    void should_delete_task() {
+        final var list = new TodoList();
+        list.addTask(TASK_ONE);
+        TaskId taskId = list.addTask(TASK_TWO);
+
+        list.deleteTask(taskId);
+
+        assertThat(list.listTasks().size(), is(equalTo(1)));
+        assertThat(list.listTasks(), not(contains(hasProperty("name", is(equalTo(TASK_TWO))))));
     }
 }

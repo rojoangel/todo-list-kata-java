@@ -32,14 +32,23 @@ public class TodoList implements AggregateRoot<TodoList, TodoListId> {
         return id;
     }
 
-    public void addTask(String taskName) {
+    public TaskId addTask(String taskName) {
         if (taskName == null || taskName.trim().isEmpty()) {
             throw new InvalidTaskName("Tasks should have a non-null non-whitespace name");
         }
-        tasks.add(new Task(TaskId.of(UUID.randomUUID()), taskName));
+        Task task = new Task(TaskId.of(UUID.randomUUID()), taskName);
+        tasks.add(task);
+        return task.getId();
     }
 
     public List<Task> listTasks() {
         return Collections.unmodifiableList(tasks);
+    }
+
+    public void deleteTask(TaskId taskId) {
+        tasks.stream()
+                .filter(t -> t.getId().equals(taskId))
+                .findFirst()
+                .ifPresent(tasks::remove);
     }
 }
