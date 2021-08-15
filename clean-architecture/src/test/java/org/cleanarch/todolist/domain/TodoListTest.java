@@ -103,4 +103,15 @@ class TodoListTest {
 
         assertThat(list.listTasks(), contains(hasProperty("completed", is(equalTo(true)))));
     }
+
+    @Test
+    void should_uncomplete_task() {
+        final var list = new TodoList();
+        TaskId taskId = list.addTask(TASK_ONE);
+
+        list.toogleTaskCompletion(taskId);
+        list.toogleTaskCompletion(taskId);
+
+        assertThat(list.listTasks(), contains(hasProperty("completed", is(equalTo(false)))));
+    }
 }
