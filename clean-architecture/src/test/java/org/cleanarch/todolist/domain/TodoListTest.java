@@ -114,4 +114,12 @@ class TodoListTest {
 
         assertThat(list.listTasks(), contains(hasProperty("completed", is(equalTo(false)))));
     }
+
+    @Test
+    void should_ignore_completion_of_inexistent_task() {
+        final var list = new TodoList();
+
+        final UUID uuid = UUID.randomUUID();
+        assertDoesNotThrow(() -> list.toogleTaskCompletion(TaskId.of(uuid)));
+    }
 }
