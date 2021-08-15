@@ -32,10 +32,6 @@ public class TodoList implements AggregateRoot<TodoList, TodoListId> {
         return id;
     }
 
-    public int size() {
-        return tasks.size();
-    }
-
     public void addTask(String taskName) {
         tasks.add(new Task(TaskId.of(UUID.randomUUID()), taskName));
     }
