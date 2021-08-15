@@ -78,7 +78,7 @@ class TodoListTest {
     }
 
     @Test
-    void should_not_fail_when_deleting_inexistent_task() {
+    void should_ignore_deletion_of_inexistent_task() {
         final var list = new TodoList();
 
         final UUID uuid = UUID.randomUUID();
