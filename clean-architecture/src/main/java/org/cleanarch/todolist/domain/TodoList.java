@@ -51,4 +51,11 @@ public class TodoList implements AggregateRoot<TodoList, TodoListId> {
                 .findFirst()
                 .ifPresent(tasks::remove);
     }
+
+    public void toogleTaskCompletion(TaskId taskId) {
+        tasks.stream()
+                .filter(t -> t.getId().equals(taskId))
+                .findFirst()
+                .ifPresent(t -> tasks.set(tasks.indexOf(t), new Task(t.getId(), t.getName(), !t.isCompleted())));
+    }
 }

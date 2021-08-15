@@ -29,8 +29,14 @@ public class Task implements Entity<TodoList, TaskId> {
 
     Task(@NonNull TaskId id,
          @NonNull String name) {
+        this(id, name, false);
+    }
+
+    Task(@NonNull TaskId id,
+         @NonNull String name,
+         boolean completed) {
         this.id = id;
         this.name = name;
-        this.completed = false;
+        this.completed = completed;
     }
 }
