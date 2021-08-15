@@ -3,12 +3,15 @@ package org.cleanarch.todolist.domain;
 import org.cleanarch.todolist.domain.Task.TaskId;
 import org.junit.jupiter.api.Test;
 
+import java.util.UUID;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.not;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TodoListTest {
@@ -72,5 +75,13 @@ class TodoListTest {
 
         assertThat(list.listTasks().size(), is(equalTo(1)));
         assertThat(list.listTasks(), not(contains(hasProperty("name", is(equalTo(TASK_TWO))))));
+    }
+
+    @Test
+    void should_not_fail_when_deleting_inexistent_task() {
+        final var list = new TodoList();
+
+        final UUID uuid = UUID.randomUUID();
+        assertDoesNotThrow(() -> list.deleteTask(TaskId.of(uuid)));
     }
 }
