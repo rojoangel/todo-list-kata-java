@@ -32,9 +32,9 @@ public class Task implements Entity<TodoList, TaskId> {
         this(id, name, false);
     }
 
-    Task(@NonNull TaskId id,
-         @NonNull String name,
-         boolean completed) {
+    public Task(@NonNull TaskId id,
+                @NonNull String name,
+                boolean completed) {
         this.id = id;
         this.name = name;
         this.completed = completed;

@@ -1,5 +1,6 @@
 package org.cleanarch.todolist.usecase;
 
+import lombok.NonNull;
 import org.cleanarch.todolist.domain.ListStore;
 import org.cleanarch.todolist.domain.TodoList;
 import org.cleanarch.todolist.usecase.request.FindOrCreateListRequest;
@@ -9,6 +10,8 @@ import java.util.Iterator;
 import java.util.function.Function;
 
 public class FindOrCreateList implements Function<FindOrCreateListRequest, FindOrCreateListResponse> {
+
+    @NonNull
     private final ListStore listStore;
 
     public FindOrCreateList(ListStore listStore) {

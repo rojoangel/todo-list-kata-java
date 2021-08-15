@@ -23,8 +23,16 @@ public class TodoList implements AggregateRoot<TodoList, TodoListId> {
     }
 
     public TodoList() {
-        this.id = TodoListId.of(UUID.randomUUID());
-        this.tasks = new ArrayList<>();
+        this(TodoListId.of(UUID.randomUUID()));
+    }
+
+    public TodoList(TodoListId todoListId) {
+        this(todoListId, new ArrayList<>());
+    }
+
+    public TodoList(TodoListId todoListId, List<Task> tasks) {
+        this.id = todoListId;
+        this.tasks = tasks;
     }
 
     @Override
