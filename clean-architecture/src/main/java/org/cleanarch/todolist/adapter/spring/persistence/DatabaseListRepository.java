@@ -32,7 +32,6 @@ public class DatabaseListRepository implements ListStore {
 
     @Override
     public TodoList save(TodoList todoList) {
-        listRepository.save(TodoListEntity.from(todoList));
-        return todoList;
+        return listRepository.save(TodoListEntity.from(todoList)).toModel();
     }
 }
