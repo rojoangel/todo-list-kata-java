@@ -84,4 +84,13 @@ class TodoListTest {
         final UUID uuid = UUID.randomUUID();
         assertDoesNotThrow(() -> list.deleteTask(TaskId.of(uuid)));
     }
+
+    @Test
+    void should_add_new_task_as_not_completed() {
+        final var list = new TodoList();
+
+        list.addTask(TASK_ONE);
+
+        assertThat(list.listTasks(), contains(hasProperty("completed", is(equalTo(false)))));
+    }
 }

@@ -14,6 +14,7 @@ public class Task implements Entity<TodoList, TaskId> {
 
     private final TaskId id;
     private final String name;
+    private final boolean completed;
 
     @Value(staticConstructor = "of")
     public static class TaskId implements Identifier {
@@ -30,5 +31,6 @@ public class Task implements Entity<TodoList, TaskId> {
          @NonNull String name) {
         this.id = id;
         this.name = name;
+        this.completed = false;
     }
 }
