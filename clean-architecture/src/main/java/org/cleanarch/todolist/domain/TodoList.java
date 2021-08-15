@@ -2,11 +2,13 @@ package org.cleanarch.todolist.domain;
 
 import lombok.NonNull;
 import lombok.Value;
+import org.cleanarch.todolist.domain.Task.TaskId;
 import org.cleanarch.todolist.domain.TodoList.TodoListId;
 import org.jmolecules.ddd.types.AggregateRoot;
 import org.jmolecules.ddd.types.Identifier;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,6 +37,10 @@ public class TodoList implements AggregateRoot<TodoList, TodoListId> {
     }
 
     public void addTask(String taskName) {
-        tasks.add(new Task());
+        tasks.add(new Task(TaskId.of(UUID.randomUUID()), taskName));
+    }
+
+    public List<Task> listTasks() {
+        return Collections.unmodifiableList(tasks);
     }
 }
