@@ -52,4 +52,11 @@ class TodoListTest {
         assertThrows(InvalidTaskName.class, () -> list.addTask(""));
         assertThat(list.listTasks().size(), is(equalTo(0)));
     }
+
+    @Test
+    void should_not_add_a_task_with_all_whitespaces_name() {
+        final var list = new TodoList();
+        assertThrows(InvalidTaskName.class, () -> list.addTask("  "));
+        assertThat(list.listTasks().size(), is(equalTo(0)));
+    }
 }

@@ -33,7 +33,7 @@ public class TodoList implements AggregateRoot<TodoList, TodoListId> {
     }
 
     public void addTask(String taskName) {
-        if (taskName == null || taskName.isEmpty()) {
+        if (taskName == null || taskName.trim().isEmpty()) {
             throw new InvalidTaskName("Tasks should have a non-null non-whitespace name");
         }
         tasks.add(new Task(TaskId.of(UUID.randomUUID()), taskName));
